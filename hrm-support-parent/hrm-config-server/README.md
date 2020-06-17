@@ -12,12 +12,12 @@ pom.xml
 ```yaml
 spring:
   application:
-      name: config-server
+      name: autoconfig
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/solargen/hrm-config-1229.git #仓库的地址
+          uri: autoconfig #仓库的地址
           searchPaths: src/main/resources #仓库的子目录中寻找配置文件
 
 eureka:
@@ -25,7 +25,7 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/ #服务注册的地址
   instance:
-    instance-id: config-server:6969
+    instance-id: autoconfig
     prefer-ip-address: true
 ```
 

@@ -9,12 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hrm-basic-parent</artifactId>
+    <artifactId>hrm-course-parent</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>hrm-basic-util</module>
-        <module>hrm-basic-boot-starter</module>
-        <module>hrm-basic-generator</module>
+        <module>hrm-course-interface</module>
+        <module>hrm-course-service</module>
     </modules>
 
 

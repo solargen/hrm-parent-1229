@@ -3,28 +3,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>hrm-system-parent</artifactId>
+        <artifactId>hrm-course-parent</artifactId>
         <groupId>cn.itsource</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hrm-system-service</artifactId>
+    <artifactId>hrm-course-service</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>cn.itsource</groupId>
-            <artifactId>hrm-system-interface</artifactId>
+            <artifactId>hrm-course-service</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!--自己封装的场景启动器-->
         <dependency>
             <groupId>cn.itsource</groupId>
             <artifactId>hrm-basic-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-
     </dependencies>
 
     <build>
@@ -33,7 +30,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>cn.itsource.hrm.SystemServiceApplication</mainClass>
+                    <mainClass>cn.itsource.hrm.CourseServiceApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

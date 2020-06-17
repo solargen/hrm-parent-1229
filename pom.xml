@@ -12,6 +12,7 @@
         <module>hrm-support-parent</module>
         <module>hrm-basic-parent</module>
         <module>hrm-system-parent</module>
+        <module>hrm-course-parent</module>
     </modules>
 
     <properties>
