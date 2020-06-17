@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    config:
+      profile: dev #环境
+      name: application-zuul #名称
+      #集群版配置中心
+      discovery:
+        service-id: config-server
+        enabled: true
+#      uri: http://localhost:6969 #单机版配置中心

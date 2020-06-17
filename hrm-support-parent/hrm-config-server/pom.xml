@@ -9,22 +9,21 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hrm-zuul-server</artifactId>
+    <artifactId>hrm-config-server</artifactId>
 
     <dependencies>
+        <!--配置中心服务端启动器-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+            <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
+        <!--eureka的客户端-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
@@ -32,7 +31,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>cn.itsource.hrm.ZuulServerApplication</mainClass>
+                    <mainClass>cn.itsource.hrm.ConfigServerApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
