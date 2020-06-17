@@ -1,10 +1,5 @@
 package ${cfg.parent}.query;
 
-
-
-import cn.itsource.basic.util.BaseQuery;
-
-
 /**
  * <p>
  * $!{table.comment} 查询参数对象

@@ -1,8 +1,8 @@
-package ${package.Controller};
+package cn.itsource.hrm.controller;
 
-import ${package.Service}.${table.serviceName};
-import ${package.Entity}.${entity};
-import cn.itsource.hrm.query.${entity}Query;
+import cn.itsource.hrm.service.ICourseService;
+import cn.itsource.hrm.domain.Course;
+import cn.itsource.hrm.query.CourseQuery;
 import cn.itsource.hrm.util.AjaxResult;
 import cn.itsource.hrm.util.PageList;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/${table.entityPath}")
-public class ${entity}Controller {
+@RequestMapping("/course")
+public class CourseController {
     @Autowired
-    public ${table.serviceName} ${table.entityPath}Service;
+    public ICourseService courseService;
 
     /**
     * 保存和修改公用的
-    * @param ${table.entityPath}  传递的实体
+    * @param course  传递的实体
     * @return Ajaxresult转换结果
     */
     @RequestMapping(value="/save",method= RequestMethod.POST)
-    public AjaxResult save(@RequestBody ${entity} ${table.entityPath}){
+    public AjaxResult save(@RequestBody Course course){
         try {
-            if(${table.entityPath}.getId()!=null){
-                ${table.entityPath}Service.updateById(${table.entityPath});
+            if(course.getId()!=null){
+                courseService.updateById(course);
             }else{
-                ${table.entityPath}Service.save(${table.entityPath});
+                courseService.save(course);
             }
             return AjaxResult.me();
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class ${entity}Controller {
     @RequestMapping(value="/{id}",method=RequestMethod.DELETE)
     public AjaxResult delete(@PathVariable("id") Long id){
         try {
-            ${table.entityPath}Service.removeById(id);
+            courseService.removeById(id);
             return AjaxResult.me();
         } catch (Exception e) {
         e.printStackTrace();
@@ -54,9 +54,9 @@ public class ${entity}Controller {
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ${entity} get(@PathVariable("id")Long id)
+    public Course get(@PathVariable("id")Long id)
     {
-        return ${table.entityPath}Service.getById(id);
+        return courseService.getById(id);
     }
 
 
@@ -65,9 +65,9 @@ public class ${entity}Controller {
     * @return
     */
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<${entity}> list(){
+    public List<Course> list(){
 
-        return ${table.entityPath}Service.list(null);
+        return courseService.list(null);
     }
 
 
@@ -78,9 +78,9 @@ public class ${entity}Controller {
     * @return PageList 分页对象
     */
     @RequestMapping(value = "/page",method = RequestMethod.POST)
-    public PageList<${entity}> page(@RequestBody ${entity}Query query)
+    public PageList<Course> page(@RequestBody CourseQuery query)
     {
-        Page<${entity}> page = ${table.entityPath}Service.page(new Page<${entity}>(query.getPageNum(), query.getPageSize()));
+        Page<Course> page = courseService.page(new Page<Course>(query.getPageNum(), query.getPageSize()));
         return new PageList<>(page.getTotal(),page.getRecords());
     }
 }

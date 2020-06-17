@@ -7,11 +7,10 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
+import org.apache.ibatis.parsing.PropertyParser;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author solargen
@@ -20,23 +19,10 @@ import java.util.Properties;
  */
 public class CodeGen {
 
+    public static void main(String[] args) throws Exception {
 
-    private static Properties properties;
-
-    static{
-
-        properties = new Properties();
-        try {
-            properties.load(CodeGen.class.getClassLoader().getResourceAsStream("/mybatis-plus-generator-course.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    public static void main(String[] args) {
-
+        Properties properties = new Properties();
+        properties.load(CodeGen.class.getClassLoader().getResourceAsStream("mybatis-plus-generator-course.properties"));
 
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
@@ -49,6 +35,7 @@ public class CodeGen {
         gc.setAuthor(properties.getProperty("author"));
         gc.setBaseResultMap(true);
         gc.setOpen(true);
+        gc.setFileOverride(true);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -70,7 +57,9 @@ public class CodeGen {
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-                // to do nothing
+                Map<String, Object> map = new HashMap<>();
+                map.put("parent", properties.getProperty("package.parent"));
+                this.setMap(map);
             }
         };
 
@@ -96,12 +85,13 @@ public class CodeGen {
         });
 
         //mapper.xml自定义生成路径
+        templatePath = "/templates/mapper.xml.vm";
         focList.add(new FileOutConfig(templatePath) {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + properties.getProperty("serviceOutputDir") +"/src/main/resources/cn/itsource/hrm/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                return projectPath + properties.getProperty("mapperOutputDir")+ "/cn/itsource/hrm/mapper/"
+                        +tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
         cfg.setFileOutConfigList(focList);
@@ -114,7 +104,7 @@ public class CodeGen {
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
         templateConfig.setEntity(null);
         templateConfig.setXml(null);
-        templateConfig.setController("template/mycontroller.java.vm");
+        templateConfig.setController("templates/mycontroller.java.vm");
         mpg.setTemplate(templateConfig);
 
         // 策略配置
@@ -122,7 +112,7 @@ public class CodeGen {
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);
-        strategy.setInclude(properties.getProperty("tables").split(","));
+        strategy.setInclude("t_course","t_course_type");
         strategy.setTablePrefix("t_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new VelocityTemplateEngine());
