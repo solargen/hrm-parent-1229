@@ -7,10 +7,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
+ * <p>
+ *  服务实现类
+ * </p>
+ *
  * @author solargen
- * @version v1.0.0
- * @date 2020-06-16
+ * @since 2020-06-19
  */
 @Service
-public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper,Employee> implements IEmployeeService {
+public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements IEmployeeService {
+
 }
