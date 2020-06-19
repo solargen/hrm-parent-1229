@@ -1,5 +1,6 @@
 package cn.itsource.hrm.controller;
 
+import cn.itsource.hrm.controller.vo.RegisterVo;
 import cn.itsource.hrm.service.ITenantService;
 import cn.itsource.hrm.domain.Tenant;
 import cn.itsource.hrm.query.TenantQuery;
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -83,4 +85,27 @@ public class TenantController {
         Page<Tenant> page = tenantService.page(new Page<Tenant>(query.getPageNum(), query.getPageSize()));
         return new PageList<>(page.getTotal(),page.getRecords());
     }
+
+
+    /**
+     * 租户注册
+     * @param registerVo
+     * @return
+     */
+    @PostMapping("/register")
+    public AjaxResult register(@RequestBody RegisterVo registerVo){
+
+        //对参数进行验证
+
+        try {
+            registerVo.setRegisterTime(System.currentTimeMillis());
+            tenantService.register(registerVo);
+            return AjaxResult.me().setSuccess(true).setMessage("注册成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.me().setSuccess(false).setMessage("注册失败!"+e.getMessage());
+        }
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package cn.itsource.hrm.service;
 
+import cn.itsource.hrm.controller.vo.RegisterVo;
 import cn.itsource.hrm.domain.Tenant;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +13,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-06-19
  */
 public interface ITenantService extends IService<Tenant> {
-
+    /**
+     * 租户注册
+     * @param registerVo
+     */
+    void register(RegisterVo registerVo);
 }
