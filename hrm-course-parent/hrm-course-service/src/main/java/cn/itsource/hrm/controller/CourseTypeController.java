@@ -83,4 +83,14 @@ public class CourseTypeController {
         Page<CourseType> page = courseTypeService.page(new Page<CourseType>(query.getPageNum(), query.getPageSize()));
         return new PageList<>(page.getTotal(),page.getRecords());
     }
+
+    /**
+     * 加载课程类型树的数据
+     * @return
+     */
+    @GetMapping("/loadTypeTree")
+    public List<CourseType> loadTypeTree(){
+        return courseTypeService.loadTypeTree();
+    }
+
 }

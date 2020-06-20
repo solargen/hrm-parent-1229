@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    config:
+      profile: dev #环境
+      name: application-cache #名称
+      #集群版配置中心
+      discovery:
+        service-id: config-server
+        enabled: true
