@@ -1,5 +1,6 @@
 package cn.itsource.hrm.controller;
 
+import cn.itsource.hrm.controller.vo.CourseAddVo;
 import cn.itsource.hrm.service.ICourseService;
 import cn.itsource.hrm.domain.Course;
 import cn.itsource.hrm.query.CourseQuery;
@@ -18,22 +19,21 @@ public class CourseController {
     public ICourseService courseService;
 
     /**
-    * 保存和修改公用的
-    * @param course  传递的实体
-    * @return Ajaxresult转换结果
-    */
-    @RequestMapping(value="/save",method= RequestMethod.POST)
-    public AjaxResult save(@RequestBody Course course){
+     * 添加课程基本信息
+     * @param courseAddVo
+     * @return
+     */
+    @RequestMapping(value="/add",method=RequestMethod.POST)
+    public AjaxResult save(@RequestBody CourseAddVo courseAddVo){
+
+        //对表单提交的内容做验证.........
+
         try {
-            if(course.getId()!=null){
-                courseService.updateById(course);
-            }else{
-                courseService.save(course);
-            }
+            courseService.add(courseAddVo);
             return AjaxResult.me();
         } catch (Exception e) {
             e.printStackTrace();
-            return AjaxResult.me().setSuccess(false).setMessage("保存对象失败！"+e.getMessage());
+            return AjaxResult.me().setMessage("删除对象失败！"+e.getMessage());
         }
     }
 
@@ -80,7 +80,6 @@ public class CourseController {
     @RequestMapping(value = "/page",method = RequestMethod.POST)
     public PageList<Course> page(@RequestBody CourseQuery query)
     {
-        Page<Course> page = courseService.page(new Page<Course>(query.getPageNum(), query.getPageSize()));
-        return new PageList<>(page.getTotal(),page.getRecords());
+        return courseService.page(query);
     }
 }

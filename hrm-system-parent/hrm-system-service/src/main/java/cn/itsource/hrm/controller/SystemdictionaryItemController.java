@@ -14,6 +14,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/systemdictionaryItem")
 public class SystemdictionaryItemController {
+
+    private final String COURSE_LEVEL = "courseLevel";
+
     @Autowired
     public ISystemdictionaryItemService systemdictionaryItemService;
 
@@ -83,4 +86,16 @@ public class SystemdictionaryItemController {
         Page<SystemdictionaryItem> page = systemdictionaryItemService.page(new Page<SystemdictionaryItem>(query.getPageNum(), query.getPageSize()));
         return new PageList<>(page.getTotal(),page.getRecords());
     }
+
+    /**
+     * 根据数据字典标识查询数据字典明细
+     * @return
+     */
+    @GetMapping("/getCourseLevel")
+    public List<SystemdictionaryItem> getCourseLevel(){
+        return systemdictionaryItemService.getBySn(COURSE_LEVEL);
+    }
+
+
+
 }

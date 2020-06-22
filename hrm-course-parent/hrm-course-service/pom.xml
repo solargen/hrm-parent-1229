@@ -35,6 +35,11 @@
             <version>1.2.62</version>
         </dependency>
 
+        <dependency>
+            <groupId>cn.itsource</groupId>
+            <artifactId>hrm-system-interface</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -4,20 +4,93 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.itsource.hrm.domain.Course">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="users" property="users" />
-        <result column="course_type_id" property="courseTypeId" />
-        <result column="gradeName" property="gradeName" />
-        <result column="grade" property="grade" />
-        <result column="status" property="status" />
-        <result column="tenant_id" property="tenantId" />
-        <result column="tenantName" property="tenantName" />
-        <result column="user_id" property="userId" />
-        <result column="userName" property="userName" />
-        <result column="start_time" property="startTime" />
-        <result column="end_time" property="endTime" />
-        <result column="pic" property="pic" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="users" property="users"/>
+        <result column="course_type_id" property="courseTypeId"/>
+        <result column="gradeName" property="gradeName"/>
+        <result column="grade" property="grade"/>
+        <result column="status" property="status"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="tenantName" property="tenantName"/>
+        <result column="user_id" property="userId"/>
+        <result column="userName" property="userName"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="pic" property="pic"/>
     </resultMap>
+
+    <resultMap id="CourseMap" type="cn.itsource.hrm.domain.Course">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="users" property="users"/>
+        <result column="course_type_id" property="courseTypeId"/>
+        <result column="gradeName" property="gradeName"/>
+        <result column="grade" property="grade"/>
+        <result column="status" property="status"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="tenantName" property="tenantName"/>
+        <result column="user_id" property="userId"/>
+        <result column="userName" property="userName"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="pic" property="pic"/>
+        <association property="courseType" javaType="cn.itsource.hrm.domain.CourseType">
+            <id property="id" column="course_type_id"/>
+            <result property="name" column="typename"/>
+        </association>
+    </resultMap>
+    <!--高级查询-->
+    <!--
+
+        where中找不到typename，why？
+        一个查询语句中
+        select   from   where
+        可以得出：
+        from
+        where
+        select
+    -->
+    <select id="selectPageByQuery" resultMap="CourseMap">
+       SELECT
+        <include refid="columns"/>
+        ,
+        ct.name typename
+       FROM t_course c
+       LEFT JOIN t_course_type ct ON c.course_type_id = ct.id
+       <include refid="whereSQL"/>
+    </select>
+    <sql id="columns">
+        c.id,
+        c.name,
+        c.users,
+        c.course_type_id,
+        c.gradeName,
+        c.grade,
+        c.status,
+        c.tenant_id,
+        c.tenantName,
+        c.user_id,
+        c.userName,
+        c.start_time,
+        c.end_time,
+        c.pic
+    </sql>
+    <sql id="whereSQL">
+        <where>
+           <if test="query.keyword!=null and query.keyword!=''">
+               AND (
+                  c.name LIKE CONCAT('%',#{query.keyword},'%')
+                  or
+                  ct.name LIKE CONCAT('%',#{query.keyword},'%')
+                  or
+                  c.userName LIKE CONCAT('%',#{query.keyword},'%')
+               )
+           </if>
+            <if test="query.status!=null">
+                AND c.status = #{query.status}
+            </if>
+        </where>
+    </sql>
 
 </mapper>
