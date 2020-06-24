@@ -1,22 +1,30 @@
 package cn.itsource.hrm.service.impl;
+import cn.itsource.hrm.client.CourseDocClient;
 import cn.itsource.hrm.client.SystemdictionaryItemClient;
-import cn.itsource.hrm.domain.CourseDetail;
-import cn.itsource.hrm.domain.CourseType;
+import cn.itsource.hrm.doc.CourseDoc;
+import cn.itsource.hrm.domain.*;
 
 import cn.itsource.hrm.controller.vo.CourseAddVo;
-import cn.itsource.hrm.domain.Course;
-import cn.itsource.hrm.domain.SystemdictionaryItem;
 import cn.itsource.hrm.mapper.CourseDetailMapper;
 import cn.itsource.hrm.mapper.CourseMapper;
+import cn.itsource.hrm.mapper.CourseMarketMapper;
+import cn.itsource.hrm.mapper.CourseTypeMapper;
 import cn.itsource.hrm.query.CourseQuery;
 import cn.itsource.hrm.service.ICourseService;
+import cn.itsource.hrm.util.AjaxResult;
 import cn.itsource.hrm.util.PageList;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -33,6 +41,64 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private SystemdictionaryItemClient systemdictionaryItemClient;
     @Autowired
     private CourseDetailMapper courseDetailMapper;
+    @Autowired
+    private CourseDocClient courseDocClient;
+    @Autowired
+    private CourseTypeMapper courseTypeMapper;
+    @Autowired
+    private CourseMarketMapper courseMarketMapper;
+
+    /**
+     * 上线
+     * @param ids
+     */
+    @Override
+    @Transactional
+    public void online(List<Long> ids) {
+        //修改上线时间和状态
+        baseMapper.online(ids,System.currentTimeMillis());
+        //查询数据库中的数据
+        List<Course> courses = baseMapper.selectBatchIds(ids);
+        //上传到es中
+        List<CourseDoc> courseDocs = courses2Docs(courses);
+        AjaxResult ajaxResult = courseDocClient.add(courseDocs);
+        if(!ajaxResult.isSuccess()){
+            //手动回滚事务
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+    }
+
+
+    private List<CourseDoc> courses2Docs(List<Course> courses) {
+        List<CourseDoc> courseDocs = new ArrayList<>();
+        for (Course course : courses) {
+            CourseDoc courseDoc = course2Doc(course);
+            courseDocs.add(courseDoc);
+        }
+        return courseDocs;
+    }
+
+    private CourseDoc course2Doc(Course course) {
+        CourseDoc courseDoc = new CourseDoc();
+        //all字段
+        CourseType courseType = courseTypeMapper.selectById(course.getCourseTypeId());
+        String courseTypeName = "";
+        if(courseType!=null){
+            courseTypeName = courseType.getName();
+        }
+        String all = course.getName()+" "+courseTypeName+" "+course.getTenantName();
+        courseDoc.setAll(all);
+
+        BeanUtils.copyProperties(course,courseDoc);
+        CourseMarket courseMarket = courseMarketMapper.selectOne(new QueryWrapper<CourseMarket>().eq("course_id", course.getId()));
+        Float price = 0f;
+        if(courseMarket!=null){
+            price = courseMarket.getPrice();
+        }
+        courseDoc.setPrice(price);
+        return courseDoc;
+    }
+
 
     /**
      * 课程高级分页查询
@@ -75,4 +141,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         courseDetail.setCourseId(course.getId());
         courseDetailMapper.insert(courseDetail);
     }
+
+
 }

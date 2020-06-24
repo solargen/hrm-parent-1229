@@ -15,6 +15,7 @@
         <module>hrm-course-parent</module>
         <module>hrm-file-parent</module>
         <module>hrm-cache-parent</module>
+        <module>hrm-elasticsearch-parent</module>
     </modules>
 
     <properties>

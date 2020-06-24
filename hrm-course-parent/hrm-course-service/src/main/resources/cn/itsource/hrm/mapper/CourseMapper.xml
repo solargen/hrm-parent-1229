@@ -40,6 +40,16 @@
             <result property="name" column="typename"/>
         </association>
     </resultMap>
+
+    <!--上线-->
+    <update id="online">
+        UPDATE t_course
+        SET status=1,start_time=#{time}
+        WHERE id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
     <!--高级查询-->
     <!--
 

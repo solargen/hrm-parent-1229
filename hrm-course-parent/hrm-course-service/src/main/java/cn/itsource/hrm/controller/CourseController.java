@@ -82,4 +82,21 @@ public class CourseController {
     {
         return courseService.page(query);
     }
+
+    /**
+     * 上线
+     * @param ids
+     * @return
+     */
+    @PostMapping("/online")
+    public AjaxResult online(@RequestBody List<Long> ids){
+        try {
+            courseService.online(ids);
+            return AjaxResult.me();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.me().setSuccess(false).setMessage("上线失败!"+e.getMessage());
+        }
+    }
+
 }
