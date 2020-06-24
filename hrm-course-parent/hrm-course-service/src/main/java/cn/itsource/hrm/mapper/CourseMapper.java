@@ -35,4 +35,11 @@ public interface CourseMapper extends BaseMapper<Course> {
      * @param time
      */
     void online(@Param("ids") List<Long> ids, @Param("time") long time);
+
+    /**
+     * 下线
+     * @param ids
+     * @param time
+     */
+    void offline(@Param("ids") List<Long> ids, @Param("time") long time);
 }

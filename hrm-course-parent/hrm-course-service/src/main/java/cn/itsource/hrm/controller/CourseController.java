@@ -99,4 +99,20 @@ public class CourseController {
         }
     }
 
+    /**
+     * 下线
+     * @param ids
+     * @return
+     */
+    @PostMapping("/offline")
+    public AjaxResult offline(@RequestBody List<Long> ids){
+        try {
+            courseService.offline(ids);
+            return AjaxResult.me();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.me().setSuccess(false).setMessage("下线失败!"+e.getMessage());
+        }
+    }
+
 }

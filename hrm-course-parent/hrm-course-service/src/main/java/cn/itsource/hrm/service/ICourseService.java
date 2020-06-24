@@ -36,4 +36,10 @@ public interface ICourseService extends IService<Course> {
      * @param ids
      */
     void online(List<Long> ids);
+
+    /**
+     * 下线
+     * @param ids
+     */
+    void offline(List<Long> ids);
 }

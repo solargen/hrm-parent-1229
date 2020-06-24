@@ -50,6 +50,15 @@
             #{id}
         </foreach>
     </update>
+    <!--下线-->
+    <update id="offline">
+        UPDATE t_course
+        SET status=0,end_time=#{time}
+        WHERE id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
     <!--高级查询-->
     <!--
 

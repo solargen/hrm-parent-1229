@@ -64,7 +64,24 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         AjaxResult ajaxResult = courseDocClient.add(courseDocs);
         if(!ajaxResult.isSuccess()){
             //手动回滚事务
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new RuntimeException(ajaxResult.getMessage());
+        }
+    }
+
+    /**
+     * 下线
+     * @param ids
+     */
+    @Override
+    @Transactional
+    public void offline(List<Long> ids) {
+        //修改下线时间和状态
+        baseMapper.offline(ids,System.currentTimeMillis());
+        //删除es
+        AjaxResult ajaxResult = courseDocClient.delete(ids);
+        if(!ajaxResult.isSuccess()){
+            throw new RuntimeException(ajaxResult.getMessage());
         }
     }
 
