@@ -3,17 +3,12 @@ package cn.itsource.hrm.query;
 import lombok.Data;
 
 /**
- * <p>
- *  查询参数对象
- * </p>
- *
  * @author solargen
- * @since 2020-06-17
+ * @version v1.0.0
+ * @date 2020-06-29
  */
 @Data
-public class CourseQuery extends BaseQuery {
-
-    private Integer status;
+public class CourseDocQuery extends BaseQuery{
 
     //课程类型
     private Long courseType;
@@ -36,6 +31,5 @@ public class CourseQuery extends BaseQuery {
      *      desc  降序
      */
     private String orderType;
-
 
 }

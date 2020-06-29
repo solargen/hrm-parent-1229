@@ -2,7 +2,9 @@ package cn.itsource.hrm.client.impl;
 
 import cn.itsource.hrm.client.CourseDocClient;
 import cn.itsource.hrm.doc.CourseDoc;
+import cn.itsource.hrm.query.CourseDocQuery;
 import cn.itsource.hrm.util.AjaxResult;
+import cn.itsource.hrm.util.PageList;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,5 +24,10 @@ public class CourseDocClientImpl implements CourseDocClient {
     @Override
     public AjaxResult delete(List<Long> ids) {
         return AjaxResult.me().setSuccess(false).setMessage("失败!");
+    }
+
+    @Override
+    public PageList<CourseDoc> page(CourseDocQuery docQuery) {
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package cn.itsource.hrm.service;
 
 import cn.itsource.hrm.controller.vo.CourseAddVo;
+import cn.itsource.hrm.doc.CourseDoc;
 import cn.itsource.hrm.domain.Course;
 import cn.itsource.hrm.query.CourseQuery;
 import cn.itsource.hrm.util.PageList;
@@ -42,4 +43,11 @@ public interface ICourseService extends IService<Course> {
      * @param ids
      */
     void offline(List<Long> ids);
+
+    /**
+     * 分页高级查询上线的课程信息
+     * @param query
+     * @return
+     */
+    PageList<CourseDoc> pageOnline(CourseQuery query);
 }

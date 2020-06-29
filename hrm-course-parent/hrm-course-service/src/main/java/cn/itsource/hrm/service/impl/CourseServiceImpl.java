@@ -9,6 +9,7 @@ import cn.itsource.hrm.mapper.CourseDetailMapper;
 import cn.itsource.hrm.mapper.CourseMapper;
 import cn.itsource.hrm.mapper.CourseMarketMapper;
 import cn.itsource.hrm.mapper.CourseTypeMapper;
+import cn.itsource.hrm.query.CourseDocQuery;
 import cn.itsource.hrm.query.CourseQuery;
 import cn.itsource.hrm.service.ICourseService;
 import cn.itsource.hrm.util.AjaxResult;
@@ -83,6 +84,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if(!ajaxResult.isSuccess()){
             throw new RuntimeException(ajaxResult.getMessage());
         }
+    }
+
+    /**
+     * 分页高级查询上线的课程信息
+     * @param query
+     * @return
+     */
+    @Override
+    public PageList<CourseDoc> pageOnline(CourseQuery query) {
+        CourseDocQuery docQuery = new CourseDocQuery();
+        BeanUtils.copyProperties(query,docQuery);
+        return courseDocClient.page(docQuery);
     }
 
 

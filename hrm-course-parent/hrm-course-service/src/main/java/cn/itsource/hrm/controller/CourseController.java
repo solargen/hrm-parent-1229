@@ -1,6 +1,7 @@
 package cn.itsource.hrm.controller;
 
 import cn.itsource.hrm.controller.vo.CourseAddVo;
+import cn.itsource.hrm.doc.CourseDoc;
 import cn.itsource.hrm.service.ICourseService;
 import cn.itsource.hrm.domain.Course;
 import cn.itsource.hrm.query.CourseQuery;
@@ -113,6 +114,16 @@ public class CourseController {
             e.printStackTrace();
             return AjaxResult.me().setSuccess(false).setMessage("下线失败!"+e.getMessage());
         }
+    }
+
+    /**
+     * 分页高级查询上线的课程信息
+     * @param query
+     * @return
+     */
+    @PostMapping("/pageOnline")
+    public PageList<CourseDoc> pageOnline(@RequestBody CourseQuery query){
+        return courseService.pageOnline(query);
     }
 
 }
