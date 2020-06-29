@@ -17,6 +17,8 @@ public class GlobalCorsConfig {
         config.addAllowedOrigin("http://localhost:6001");
         config.addAllowedOrigin("http://127.0.0.1:6002");
         config.addAllowedOrigin("http://localhost:6002");
+        config.addAllowedOrigin("http://127.0.0.1:6003");
+        config.addAllowedOrigin("http://localhost:6003");
         config.addAllowedOrigin("http://localhost");
         config.addAllowedOrigin("http://127.0.0.1");
         //2) 是否发送Cookie信息

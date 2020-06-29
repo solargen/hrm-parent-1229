@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.hrm.mapper.VipRealinfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.itsource.hrm.domain.VipRealinfo">
+        <id column="id" property="id" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="ssoId" property="ssoId" />
+        <result column="realName" property="realName" />
+        <result column="idCardNo" property="idCardNo" />
+        <result column="idCardFront" property="idCardFront" />
+        <result column="idCardBack" property="idCardBack" />
+        <result column="idCardHand" property="idCardHand" />
+        <result column="state" property="state" />
+        <result column="applyTime" property="applyTime" />
+        <result column="auditTime" property="auditTime" />
+        <result column="auditUser" property="auditUser" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+</mapper>

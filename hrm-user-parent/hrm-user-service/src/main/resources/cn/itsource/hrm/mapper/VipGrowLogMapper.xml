@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.hrm.mapper.VipGrowLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.itsource.hrm.domain.VipGrowLog">
+        <id column="id" property="id" />
+        <result column="createTime" property="createTime" />
+        <result column="ssoId" property="ssoId" />
+        <result column="fromReason" property="fromReason" />
+        <result column="score" property="score" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+</mapper>
