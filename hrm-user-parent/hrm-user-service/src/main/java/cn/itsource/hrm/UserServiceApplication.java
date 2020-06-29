@@ -3,6 +3,7 @@ package cn.itsource.hrm;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author solargen
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("cn.itsource.hrm.mapper")
+@EnableFeignClients
 public class UserServiceApplication {
 
     public static void main(String[] args) {

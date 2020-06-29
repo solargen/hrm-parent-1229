@@ -16,6 +16,7 @@
         <module>hrm-course-parent</module>
         <module>hrm-file-parent</module>
         <module>hrm-cache-parent</module>
+        <module>hrm-sms-parent</module>
         <module>hrm-elasticsearch-parent</module>
     </modules>
 
@@ -49,7 +50,15 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
+
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>5.3.7</version>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
 

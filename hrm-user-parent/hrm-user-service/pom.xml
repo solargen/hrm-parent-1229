@@ -23,6 +23,16 @@
             <artifactId>hrm-basic-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.itsource</groupId>
+            <artifactId>hrm-cache-interface</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
 
     </dependencies>
