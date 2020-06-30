@@ -36,6 +36,15 @@ public class LoginFilter extends ZuulFilter{
 
     @Override
     public boolean shouldFilter() {
+        //获取请求对象
+        RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+        String uri = request.getRequestURI();
+
+        //设置放行的请求
+        if(uri.contains("/code/")||uri.contains("/register")||uri.contains("login")||uri.contains("/v2/api-docs")){
+            return false;//放行
+        }
         return true;
     }
 
@@ -45,12 +54,6 @@ public class LoginFilter extends ZuulFilter{
         //获取请求对象
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
-
-        String uri = request.getRequestURI();
-        //设置放行的请求
-        if(uri.contains("/register")||uri.contains("login")||uri.contains("/v2/api-docs")){
-            return null;//放行
-        }
 
         //解析请求头
         String accessToken = request.getHeader("ACCESS-TOKEN");
