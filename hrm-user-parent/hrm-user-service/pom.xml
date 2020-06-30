@@ -33,6 +33,11 @@
             <artifactId>hrm-cache-interface</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>cn.itsource</groupId>
+            <artifactId>hrm-sms-interface</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
 
     </dependencies>

@@ -13,4 +13,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SsoMapper extends BaseMapper<Sso> {
 
+    /**
+     * 用户根据name查询
+     * @param name
+     */
+    Sso selectByName(String name);
 }

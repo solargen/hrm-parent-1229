@@ -2,9 +2,7 @@ package cn.itsource.hrm.controller;
 
 import cn.itsource.hrm.util.AjaxResult;
 import cn.itsource.hrm.util.RedisUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -111,6 +109,29 @@ public class CacheController {
         } catch (Exception e) {
             e.printStackTrace();
             return AjaxResult.me().setSuccess(false).setMessage("删除失败!");
+        } finally {
+            if(jedis!=null){
+                jedis.close();
+            }
+        }
+    }
+
+    /**
+     * 请求参数只允许一个@RequestBody,但是可以有多个@RequstParam
+     * @param key
+     * @param value
+     * @return
+     */
+    @PostMapping("/setBytes")
+    public AjaxResult setBytes(@RequestParam("key") String key,@RequestParam("seconds")Integer seconds,@RequestBody byte[] value){
+        Jedis jedis = null;
+        try {
+            jedis = RedisUtils.INSTANCE.getSource();
+            jedis.setex(key.getBytes(),seconds,value);
+            return AjaxResult.me().setSuccess(true).setMessage("成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.me().setSuccess(false).setMessage("失败!");
         } finally {
             if(jedis!=null){
                 jedis.close();

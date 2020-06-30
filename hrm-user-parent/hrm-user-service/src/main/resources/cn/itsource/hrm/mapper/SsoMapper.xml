@@ -17,5 +17,11 @@
         <result column="bitState" property="bitState" />
         <result column="secLevel" property="secLevel" />
     </resultMap>
+    <select id="selectByName" resultType="cn.itsource.hrm.domain.Sso">
+        SELECT * FROM t_sso
+        WHERE
+        phone = #{name} or
+        email = #{name}
+    </select>
 
 </mapper>

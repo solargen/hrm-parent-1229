@@ -2,6 +2,7 @@ package cn.itsource.hrm.mapper;
 
 import cn.itsource.hrm.domain.VipRealinfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author solargen
  * @since 2020-06-29
  */
+@Component
 public interface VipRealinfoMapper extends BaseMapper<VipRealinfo> {
 
 }
